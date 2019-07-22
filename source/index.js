@@ -71,6 +71,7 @@ export default class GesturePassword extends Component {
 
     render() {
         let color = this.props.status === 'wrong' ? this.props.wrongColor : this.props.rightColor;
+        const { lineHeight } = this.props;
 
         return (
             <View style={[styles.frame, this.props.style, {flex: 1}]}>
@@ -82,7 +83,7 @@ export default class GesturePassword extends Component {
                 <View style={styles.board} {...this._panResponder.panHandlers}>
                     {this.renderCircles()}
                     {this.renderLines()}
-                    <Line ref='line' color={ this.props.transparentLine ? '#00000000' : color} />
+                    <Line ref='line' lineHeight={lineHeight} color={ this.props.transparentLine ? '#00000000' : color} />
                 </View>
 
                 {this.props.children}
@@ -92,7 +93,7 @@ export default class GesturePassword extends Component {
 
     renderCircles() {
         let array = [], fill, color, inner, outer;
-        let { status, normalColor, wrongColor, rightColor, innerCircle, outerCircle } = this.props;
+        let { status, normalColor, wrongColor, rightColor, innerCircle, outerCircle,outerCicleBGColor } = this.props;
 
         this.state.circles.forEach(function(c, i) {
             fill = c.isActive;
@@ -101,7 +102,7 @@ export default class GesturePassword extends Component {
             outer = !!outerCircle;
 
             array.push(
-                <Circle key={'c_' + i} fill={fill} normalColor={normalColor} color={color} x={c.x} y={c.y} r={Radius} inner={inner} outer={outer} />
+                <Circle key={'c_' + i} bgColor={outerCicleBGColor} fill={fill} normalColor={normalColor} color={color} x={c.x} y={c.y} r={Radius} inner={inner} outer={outer} />
             )
         });
 
@@ -110,14 +111,14 @@ export default class GesturePassword extends Component {
 
     renderLines() {
         let array = [], color;
-        let { status, wrongColor, rightColor, transparentLine } = this.props;
+        let { status, wrongColor, rightColor, transparentLine, lineHeight } = this.props;
 
         this.state.lines.forEach(function(l, i) {
             color = status === 'wrong' ? wrongColor : rightColor;
             color = transparentLine ? '#00000000' : color;
 
             array.push(
-                <Line key={'l_' + i} color={color} start={l.start} end={l.end} />
+                <Line key={'l_' + i} lineHeight={lineHeight} color={color} start={l.start} end={l.end} />
             )
         });
 
@@ -284,7 +285,10 @@ GesturePassword.propTypes = {
     interval: PropTypes.number,
     allowCross: PropTypes.bool,
     innerCircle: PropTypes.bool,
-    outerCircle: PropTypes.bool
+    outerCircle: PropTypes.bool,
+    lineColor: PropTypes.string,
+    outerCicleBGColor: PropTypes.string,
+    lineHeight: PropTypes.number
 };
 
 GesturePassword.defaultProps = {
@@ -296,7 +300,10 @@ GesturePassword.defaultProps = {
     interval: 0,
     allowCross: false,
     innerCircle: true,
-    outerCircle: true
+    outerCircle: true,
+    outerCicleBGColor: '#292B38',
+    lineColor: '#8E91A8',
+    lineHeight: 3
 };
 
 const styles = StyleSheet.create({

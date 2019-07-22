@@ -22,6 +22,7 @@ export default class Line extends Component {
     render() {
         console.log(this.state)
         let { start, end, color, transparentLine } = this.state;
+        const { lineHeight } = this.props;
 
         if ( isEquals(start, end) ) return null;
 
@@ -36,7 +37,7 @@ export default class Line extends Component {
 
         return (
             <View ref='line' style={[
-                styles.line, {backgroundColor: color, left: start.x, top: start.y, width: length},
+                styles.line, {height:lineHeight}, {backgroundColor: color, left: start.x, top: start.y, width: length},
                 {transform: [{translateX: moveX}, {translateY: moveY}, {rotateZ: angle}]}
             ]} />
         )
@@ -52,19 +53,21 @@ Line.propTypes = {
     end: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number
-    })
+    }),
+    lineHeight: PropTypes.number
 }
 
 Line.defaultProps = {
     color: '#8E91A8',
     start: {x: 0, y: 0},
-    end: {x: 0, y: 0}
+    end: {x: 0, y: 0},
+    lineHeight: 3
 }
 
 const styles = StyleSheet.create({
     line: {
         position: 'absolute',
-        height: 1
+        zIndex:0
     }
 })
 

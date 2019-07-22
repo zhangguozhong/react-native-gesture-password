@@ -7,13 +7,13 @@ export default class Circle extends Component {
     }
 
     render() {
-        let {color, normalColor, fill, x, y, r, inner, outer} = this.props;
+        let {color, normalColor, fill, x, y, r, inner, outer, bgColor} = this.props;
 
         return (
             <View style={[styles.outer,
                         {left: x - r, top: y - r, width: 2 * r, height: 2 * r, borderRadius: r}, {borderColor: normalColor},
                         fill && {borderColor: color},
-                        !outer && {borderWidth: 0}]}>
+                        !outer && {borderWidth: 0},{backgroundColor:bgColor}]}>
 
                 {inner && <View style={[
                             !outer && styles.inner,
@@ -32,7 +32,8 @@ Circle.propTypes = {
     y: PropTypes.number,
     r: PropTypes.number,
     inner: PropTypes.bool,
-    outer: PropTypes.bool
+    outer: PropTypes.bool,
+    bgColor: PropTypes.string
 }
 
 Circle.defaultProps = {
@@ -45,6 +46,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         borderColor: '#8E91A8',
         borderWidth: 1,
+        zIndex:100,
+        backgroundColor:'#292B38',
         alignItems: 'center',
         justifyContent: 'center'
     },
