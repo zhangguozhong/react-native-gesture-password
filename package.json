@@ -1,6 +1,6 @@
 {
   "name": "tm-react-native-gesture-password",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A gesture password component for React Native. It supports both iOS and Android since it's' written in pure JavaScript.",
   "main": "source/index.js",
   "scripts": {
